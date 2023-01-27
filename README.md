@@ -9,3 +9,6 @@
 (dossiers: controllers, database, middleware, models, routes)
 
 Créer un dossier docs et images en dehors du dossier backend
+
+## Installer le package nodemon en tapant npm install --save-dev nodemon pour mettre en dev dependencies.
+## Installer le package express en tapant npm install express.
