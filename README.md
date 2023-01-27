@@ -12,3 +12,4 @@ Créer un dossier docs et images en dehors du dossier backend
 
 ## Installer le package nodemon en tapant npm install --save-dev nodemon pour mettre en dev dependencies.
 ## Installer le package express en tapant npm install express.
+## Installer le package dotenv en tapant npm install --save-dev dotenv pour mettre en dev dependencies.
