@@ -18,3 +18,19 @@ Créer un dossier docs et images en dehors du dossier backend
 
 Dans le fichier index.js importer: le fichier app.js et les variables d'environnement.
 Dans le fichier app.js importer: express, morgan, le fichier data.js.
+
+---------------- Création de la base de données---------------
+Créer un fichier data.js dans le dossier database.
+
+dans le fichier data, importer mongoose, dotenv et faire la connection à mongoDB.
+
+
+exemple :
+
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("connexion réussi à MongoDB")) 
+.catch(() => console.log("connexion à MongoDB échoué"));
