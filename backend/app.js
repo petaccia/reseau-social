@@ -10,6 +10,9 @@ const morgan = require("morgan");
 // Importation du fichier data.js pour connexion à la base de donnée
 const mongoose = require("./database/data");
 
+//Importation des routes
+const userRoutes = require("./routes/User")
+
 
 const app = express();
 
@@ -29,10 +32,10 @@ app.use(
 );
 
 //transformer le corops (le body) en json objet javascript utilisable
-app.use(bodyParser.json());²
+app.use(bodyParser.json());
 
 // route D'authentification (auth)
-
+app.use("/api/auth", userRoutes);
 
 //exportation de app.js pour pouvoir y accéder depuis un autre fichier
 module.exports = app;
