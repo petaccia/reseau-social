@@ -1,6 +1,7 @@
 // Importation de models
 const User = require("../models/UserManager");
 
+
 //Importation de bcrypt pour hash password
 const bcrypt = require("bcrypt")
 
@@ -24,6 +25,7 @@ exports.signUp = async (req, res) => {
     }
   }
   
+
 
 
 
