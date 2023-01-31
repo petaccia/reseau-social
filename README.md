@@ -34,3 +34,6 @@ mongoose.connect(
 })
 .then(() => console.log("connexion réussi à MongoDB")) 
 .catch(() => console.log("connexion à MongoDB échoué"));
+
+## Installer le package body-parser.
+dans le fichier app importer body-parser 
