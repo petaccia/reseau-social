@@ -34,3 +34,11 @@ mongoose.connect(
 })
 .then(() => console.log("connexion réussi à MongoDB")) 
 .catch(() => console.log("connexion à MongoDB échoué"));
+
+## Installer le package body-parser en tapant npm install body-parser.
+dans le fichier app.js importer body-parser
+
+--------------hachage du mot de passe--------------
+
+## Installer le package bcrypt en tapant npm install bcrypt. 
+dans le fichier UserControllers importer bcrypt.
