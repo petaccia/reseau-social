@@ -42,3 +42,12 @@ dans le fichier app.js importer body-parser
 
 ## Installer le package bcrypt en tapant npm install bcrypt. 
 dans le fichier UserControllers importer bcrypt.
+
+-------------hachage de l'email--------------------
+## Installer le package crypto-js en tapant npm install crypto-js. 
+dans le fichier UserControllers importer crypto-js.
+
+------------validation du password en fonction du nombres de caractères--------
+## Installer le package password-validator en tapant npm install password-validator
+Ensuite créer un middelware et le nommer password.js.
+Importer password-validator et créer un schéma avec les conditions que vous souhaitez.
