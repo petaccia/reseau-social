@@ -51,3 +51,12 @@ dans le fichier UserControllers importer crypto-js.
 ## Installer le package password-validator en tapant npm install password-validator
 Ensuite créer un middelware et le nommer password.js.
 Importer password-validator et créer un schéma avec les conditions que vous souhaitez.
+
+dans le fichier routes/User.js importer password-validator et l'intégrer au post sinUp.
+
+-------------ne pas avoir un email en double dans la base de données-------
+## Installer le package mongoose-unique-validator en tapant npm install mongoose-unique-validator
+dans le fichier userManager importer mongoose-unique-validator.
+En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
+
+
