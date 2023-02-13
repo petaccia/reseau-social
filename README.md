@@ -59,4 +59,7 @@ dans le fichier routes/User.js importer password-validator et l'intégrer au pos
 dans le fichier userManager importer mongoose-unique-validator.
 En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
 
+-----------------création de la route Login---------------------------------
+créer la route login dans route/User.js (router.post("/login", userController.login)
+
 
