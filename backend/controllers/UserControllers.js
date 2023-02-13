@@ -11,6 +11,8 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const result = dotenv.config();
 
+
+//------------------------------SIGNUP----------------------------------------
 // signUp pour enregistrer le nouvel utilisateur dans la base de donnée
 // salt = 10 combien de fois sera éxécuté l'algorithme de hash
 exports.signUp = async (req, res) => {
@@ -33,7 +35,14 @@ const emailCryptoJs = cryptoJs.HmacSHA256(req.body.email,`${process.env.DB_KEY_S
         res.status(500).json({message: error.message});
         
     }
-  }
+  };
+
+  // -----------------------LOGIN-----------------------
+
+  //Login pour s'authentifier
+  exports.login = async (req, res) => {
+
+  };
   
 
 
