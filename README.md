@@ -61,5 +61,5 @@ En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
 
 -----------------création de la route Login---------------------------------
 créer la route login dans route/User.js (router.post("/login", userController.login)
-
+verification du mot de passe et de l'email avec bcrypt.
 
