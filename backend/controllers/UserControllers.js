@@ -11,6 +11,8 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const result = dotenv.config();
 
+
+//------------------------------SIGNUP----------------------------------------
 // signUp pour enregistrer le nouvel utilisateur dans la base de donnée
 // salt = 10 combien de fois sera éxécuté l'algorithme de hash
 exports.signUp = async (req, res) => {
@@ -33,7 +35,57 @@ const emailCryptoJs = cryptoJs.HmacSHA256(req.body.email,`${process.env.DB_KEY_S
         res.status(500).json({message: error.message});
         
     }
-  }
+  };
+
+// -----------------------LOGIN-----------------------
+
+//Login pour s'authentifier
+exports.login = async (req, res) => {
+    
+      // le contenu de la requête
+      // console.log(req.body.email);
+      // console.log(req.body.password);
+      
+      // chiffrer l'email de la requête
+  const emailCryptoJs = cryptoJs
+    .HmacSHA256(req.body.email,`${process.env.DB_KEY_SECRET}`)
+    .toString();
+      // console.log(emailCryptoJs);
+      // chercher dans la base de données si l'utilisateur est bien présent
+     User.findOne({email : emailCryptoJs })
+    .then((user) => {
+      if (!user) {
+      return res.status(400).json({ error : "utilisateur non reconnu"})
+        }
+       
+            
+        // contrôler la validité du password envoyé par le front
+          bcrypt
+          .compare(req.body.password, user.password)
+          .then((controlPassword) => {
+            console.log(controlPassword);
+
+            // si le mot de passe n'est pas bon
+            if(!controlPassword) {
+             return res.status(401).json({ error: "mot de passe incorrect"})
+            }
+
+            // si le mot de passe correct
+            res.status(200).json({ messge: "mot de passe correct"})
+          })
+          .catch((err) => res.status(500).json({ err }));
+    })
+      .catch ((error)  => res.status(500).json({ error }))
+      };
+    
+  
+      
+      
+    
+      
+
+
+
   
 
 

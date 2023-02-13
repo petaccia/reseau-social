@@ -10,7 +10,8 @@ const userController = require("../controllers/UserControllers");
 //La fonction router
 const router = express.Router();
 
-
+// La route login
+router.post("/login", userController.login)
 
 // la route (endpoint) signUp
 router.post("/signUp", password, userController.signUp)
