@@ -7,6 +7,10 @@ const cryptoJs = require("crypto-js");
 //Importation de bcrypt pour hash password
 const bcrypt = require("bcrypt");
 
+// Importation de Jsonwebtoken
+const jwt = require("jsonwebtoken");
+
+
 //importation des variables d'environnement.
 const dotenv = require("dotenv");
 const result = dotenv.config();
@@ -41,42 +45,38 @@ const emailCryptoJs = cryptoJs.HmacSHA256(req.body.email,`${process.env.DB_KEY_S
 
 //Login pour s'authentifier
 exports.login = async (req, res) => {
-    
-      // le contenu de la requête
-      // console.log(req.body.email);
-      // console.log(req.body.password);
-      
+    try{
       // chiffrer l'email de la requête
-  const emailCryptoJs = cryptoJs
-    .HmacSHA256(req.body.email,`${process.env.DB_KEY_SECRET}`)
-    .toString();
-      // console.log(emailCryptoJs);
-      // chercher dans la base de données si l'utilisateur est bien présent
-     User.findOne({email : emailCryptoJs })
-    .then((user) => {
-      if (!user) {
-      return res.status(400).json({ error : "utilisateur non reconnu"})
-        }
+      const emailCryptoJs = cryptoJs
+      .HmacSHA256(req.body.email,`${process.env.DB_KEY_SECRET}`).toString();
        
-            
+      // chercher dans la base de données si l'utilisateur est bien présent
+        const user= await User.findOne({email : emailCryptoJs })
+        if (!user) {
+          return res.status(400).json({ error : "utilisateur non reconnu"})
+        }
         // contrôler la validité du password envoyé par le front
-          bcrypt
-          .compare(req.body.password, user.password)
-          .then((controlPassword) => {
-            console.log(controlPassword);
-
-            // si le mot de passe n'est pas bon
-            if(!controlPassword) {
-             return res.status(401).json({ error: "mot de passe incorrect"})
-            }
-
-            // si le mot de passe correct
-            res.status(200).json({ messge: "mot de passe correct"})
-          })
-          .catch((err) => res.status(500).json({ err }));
-    })
-      .catch ((error)  => res.status(500).json({ error }))
-      };
+        const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+        if(!isPasswordValid) {
+          // si le mot de passe n'est pas bon
+          return res.status(401).json({ error: "mot de passe incorrect"})
+        }
+        // si le mot de passe correct
+        // envoie dans la réponse du serveur du userId et du token d'auth
+        // encodage du userId pour la création de nouveau objet
+        res.status(200).json({
+          //3 arguments
+          userId: user._id,
+          token: jwt.sign({userId: user._id}, `${process.env.JWT_KEY_TOKEN}`, {expiresIn: "12h"}),
+        });
+      } catch (err) {
+        res.status(500).json({ err });
+  }                  
+}
+    
+                
+               
+              
     
   
       
