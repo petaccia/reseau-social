@@ -62,4 +62,12 @@ En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
 -----------------création de la route Login---------------------------------
 créer la route login dans route/User.js (router.post("/login", userController.login)
 verification du mot de passe et de l'email avec bcrypt.
+Dans le fichier UserController.js créer :
+
+- Créer fonction pour voir si l'utilisateur est présent dans la base de donnée.
+- créer un fonction avec bcrypt (compare) pour contrôler la validité du password envoyé par le front.
+
+Ensuite installer le package jsonwebtoken en tapant npm install jsonwebtoken.
+Dans le fichier UserController.js importer jsonwebtoken.
+- Créer un token pour la sécurité du password.
 
