@@ -60,14 +60,22 @@ dans le fichier userManager importer mongoose-unique-validator.
 En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
 
 -----------------création de la route Login---------------------------------
-créer la route login dans route/User.js (router.post("/login", userController.login)
+créer la route login dans route/User.js (router.post("/login", connexionController.login)
 verification du mot de passe et de l'email avec bcrypt.
-Dans le fichier UserController.js créer :
+Dans le fichier connexionController.js créer :
 
 - Créer fonction pour voir si l'utilisateur est présent dans la base de donnée.
 - créer un fonction avec bcrypt (compare) pour contrôler la validité du password envoyé par le front.
 
 Ensuite installer le package jsonwebtoken en tapant npm install jsonwebtoken.
-Dans le fichier UserController.js importer jsonwebtoken.
+Dans le fichier connexionController.js importer jsonwebtoken.
 - Créer un token pour la sécurité du password.
 
+---------------Création des routes pour l'utilisateur------------------------
+Créer un fichier: (1) userControllers.js
+                  (2) UserManager.js dans le dossier models
+                  (3) User.js dans le dossier routes
+                  
+ créer un schema dans UserManager.js pour les utilisateurs
+ créer des fonction pour réaliser un CRUD dans le fichier userControllers.js
+ créer dans le dossier routes toutes les routes pour les utilisateurs.
