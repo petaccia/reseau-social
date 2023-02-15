@@ -35,10 +35,10 @@ app.use(
 app.use(bodyParser.json());
 
 // route D'authentification (auth)
-app.use("/api/auth", connexionRoutes);
+app.use("/auth", connexionRoutes);
 
 //route pour utilisateur
-app.use("/api/user", userRoutes);
+app.use("/user", userRoutes);
 
 //exportation de app.js pour pouvoir y accéder depuis un autre fichier
 module.exports = app;

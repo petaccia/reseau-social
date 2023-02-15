@@ -9,9 +9,11 @@ const router = express.Router();
 
 
 //Les routes
-router.post("/createUser", userControllers.createUser);
-
-
+router.get("/", userControllers.browseUser);
+router.get("/:id", userControllers.readUser);
+router.post("/", userControllers.createUser);
+router.put("/:id", userControllers.editUser);
+router.delete("/:id", userControllers.destroyUser)
 
 module.exports = router;
 
