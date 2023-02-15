@@ -15,4 +15,7 @@ router.post("/login", connexionController.login)
 
 // la route (endpoint) signUp
 router.post("/signUp", password, connexionController.signUp)
+
+
+
 module.exports = router;

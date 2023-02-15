@@ -11,8 +11,8 @@ const morgan = require("morgan");
 const mongoose = require("./database/data");
 
 //Importation des routes
-const userRoutes = require("./routes/Connexion")
-
+const connexionRoutes = require("./routes/Connexion")
+const userRoutes = require("./routes/User")
 
 const app = express();
 
@@ -35,7 +35,10 @@ app.use(
 app.use(bodyParser.json());
 
 // route D'authentification (auth)
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", connexionRoutes);
+
+//route pour utilisateur
+app.use("/api/user", userRoutes);
 
 //exportation de app.js pour pouvoir y accéder depuis un autre fichier
 module.exports = app;
