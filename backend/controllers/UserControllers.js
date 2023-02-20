@@ -2,6 +2,7 @@
 const Users = require("../models/UserManager");
 
 exports.createUser = async (req,res) => {
+  console.log(req.body);
   const users = new Users(req.body);
   try {
     const inserteduser = await users.save();
@@ -35,7 +36,7 @@ exports.browseUser = async (req,res) => {
       new: true,
       runValidators: true
   });
-    res.status(200).json(updateduser);
+    res.status(200).json({message : "l'objet a été mis à jour", updateduser});
   }catch (error) {
     res.status(400).json({message: error.message});
   }
@@ -45,7 +46,7 @@ exports.browseUser = async (req,res) => {
   try {
     const deleteduser = await Users.findByIdAndDelete(req.params.id);
     
-    res.status(204).json(deleteduser);
+    res.status(204).json({message : "l'objet a bien été supprimé", deleteduser});
   }catch (error) {
     res.status(400).json({message: error.message});
   }
