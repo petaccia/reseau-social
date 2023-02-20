@@ -10,14 +10,14 @@ const morgan = require("morgan");
 // Importation du fichier data.js pour connexion à la base de donnée
 const mongoose = require("./database/data");
 
+//Importer body-parser
+const bodyParser = require("body-parser");
+
 //Importation des routes
 const connexionRoutes = require("./routes/Connexion")
 const userRoutes = require("./routes/User")
 
 const app = express();
-
-//Importer body-parser
-const bodyParser = require("body-parser");
 
 //logger les requêtes et les reponses 
 app.use(morgan("dev"));

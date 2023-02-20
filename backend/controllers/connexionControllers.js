@@ -51,28 +51,33 @@ exports.login = async (req, res) => {
       .HmacSHA256(req.body.email,`${process.env.DB_KEY_SECRET}`).toString();
        
       // chercher dans la base de données si l'utilisateur est bien présent
-        const user= await User.findOne({email : emailCryptoJs })
-        if (!user) {
-          return res.status(400).json({ error : "utilisateur non reconnu"})
-        }
-        // contrôler la validité du password envoyé par le front
-        const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
-        if(!isPasswordValid) {
-          // si le mot de passe n'est pas bon
-          return res.status(401).json({ error: "mot de passe incorrect"})
-        }
-        // si le mot de passe correct
-        // envoie dans la réponse du serveur du userId et du token d'auth
-        // encodage du userId pour la création de nouveau objet
-        res.status(200).json({
+        const user = await User.findOne({email : emailCryptoJs })
+          if (!user) {
+            return res.status(400).json({ error : "utilisateur non reconnu"})
+          }
+          // contrôler la validité du password envoyé par le front
+           const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+          if(!isPasswordValid) {
+            // si le mot de passe n'est pas bon
+            return res.status(401).json({ error: "mot de passe incorrect"})
+          }
+          // si le mot de passe correct
+          // envoie dans la réponse du serveur du userId et du token d'auth
           //3 arguments
-          userId: user._id,
-          token: jwt.sign({userId: user._id}, `${process.env.JWT_KEY_TOKEN}`, {expiresIn: "12h"}),
-        });
-      } catch (err) {
-        res.status(500).json({ err });
-  }                  
+          res.status(200).json({
+            // encodage du userId pour la création de nouveau objet
+            userId: user._id,
+            token: jwt.sign(
+              {userId: user._id}, 
+            `${process.env.JWT_KEY_TOKEN}`, 
+              {expiresIn: "12h"})
+            });
+            
+          }catch (err) {
+           res.status(500).json({ err });
+        }        
 }
+
     
                 
                
