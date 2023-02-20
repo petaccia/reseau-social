@@ -35,5 +35,51 @@ mongoose.connect(
 .then(() => console.log("connexion réussi à MongoDB")) 
 .catch(() => console.log("connexion à MongoDB échoué"));
 
+
 ## Installer le package body-parser.
 dans le fichier app importer body-parser 
+
+## Installer le package body-parser en tapant npm install body-parser.
+dans le fichier app.js importer body-parser
+
+--------------hachage du mot de passe--------------
+
+## Installer le package bcrypt en tapant npm install bcrypt. 
+dans le fichier UserControllers importer bcrypt.
+
+-------------hachage de l'email--------------------
+## Installer le package crypto-js en tapant npm install crypto-js. 
+dans le fichier UserControllers importer crypto-js.
+
+------------validation du password en fonction du nombres de caractères--------
+## Installer le package password-validator en tapant npm install password-validator
+Ensuite créer un middelware et le nommer password.js.
+Importer password-validator et créer un schéma avec les conditions que vous souhaitez.
+
+dans le fichier routes/User.js importer password-validator et l'intégrer au post sinUp.
+
+-------------ne pas avoir un email en double dans la base de données-------
+## Installer le package mongoose-unique-validator en tapant npm install mongoose-unique-validator
+dans le fichier userManager importer mongoose-unique-validator.
+En dessous de userSchema intégrer (userSchema.plugin(uniqueValidator);
+
+-----------------création de la route Login---------------------------------
+créer la route login dans route/User.js (router.post("/login", connexionController.login)
+verification du mot de passe et de l'email avec bcrypt.
+Dans le fichier connexionController.js créer :
+
+- Créer fonction pour voir si l'utilisateur est présent dans la base de donnée.
+- créer un fonction avec bcrypt (compare) pour contrôler la validité du password envoyé par le front.
+
+Ensuite installer le package jsonwebtoken en tapant npm install jsonwebtoken.
+Dans le fichier connexionController.js importer jsonwebtoken.
+- Créer un token pour la sécurité du password.
+
+---------------Création des routes pour l'utilisateur------------------------
+Créer un fichier: (1) userControllers.js
+                  (2) UserManager.js dans le dossier models
+                  (3) User.js dans le dossier routes
+                  
+ créer un schema dans UserManager.js pour les utilisateurs
+ créer des fonction pour réaliser un CRUD dans le fichier userControllers.js
+ créer dans le dossier routes toutes les routes pour les utilisateurs.
