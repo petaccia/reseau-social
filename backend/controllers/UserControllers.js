@@ -2,11 +2,24 @@
 const Users = require("../models/UserManager");
 
 exports.createUser = async (req,res) => {
-  console.log(req.body);
-  const users = new Users(req.body);
   try {
+  console.log(req.body.user);
+  const user = JSON.parse(req.body.user);
+  // console.log(user);
+  
+  
+ 
+  // console.log(req.protocol);
+  // console.log(req.get("host"));
+  // console.log(req.file.filename);
+
+  const users = new Users({
+    ...user,
+    photoProfilUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+  });
     const inserteduser = await users.save();
-    res.status(201).json(inserteduser);
+    console.log(inserteduser);
+    res.status(201).json({inserteduser, message : "objet enregistré dans la base de donnée"});
   }catch (error) {
     res.status(400).json({message: error.message});
   }

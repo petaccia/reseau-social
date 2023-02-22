@@ -4,7 +4,7 @@ const express = require("express");
 //Importation du controllers
 const userControllers = require("../controllers/userControllers");
 
-//Pùôrtation du fichier multer
+//Importation du fichier multer
 const multer = require("../middleware/multer");
 
 //importation du middleware d'authentification

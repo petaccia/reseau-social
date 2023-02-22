@@ -24,9 +24,11 @@ destination :  (req, file, cb) => {
     const name = file.originalname.split(" ").join("_");
     const extension = MIME_TYPE[ file.mimetype];
 
-    cb(null, name + "_" + Date.now() + extension);
+    // cb(null, name + "_" + Date.now() + "." + extension);
+    cb(null, `${name}_${Date.now()}.${extension}`);
   }
 })
 
+console.log(storage);
 // Expotation du middleware multer
 module.exports = multer({storage}).single("image");
