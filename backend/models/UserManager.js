@@ -8,6 +8,7 @@ const Schema = mongoose.Schema({
  name : { type: String, required: true },
  username : { type: String, required: true },
  age : { type: Number, required: true },
+ photoProfilUrl : { type: String, required: true }
 });
 
 //exportation du module

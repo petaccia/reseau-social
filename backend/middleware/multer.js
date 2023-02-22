@@ -16,15 +16,15 @@ const MIME_TYPE = {
 //  La destination du fichier (repertoire) et générer un nom de fichier unique
 const storage = multer.diskStorage({
 // La destination de stockage du fichier
-destination :  (req, file, cb) {
+destination :  (req, file, cb) => {
   cb(null, "images");
   },
-  filename: (req, file, cb) {
+  filename: (req, file, cb) => {
     //supprimer les espaces dans le nom du fichier
     const name = file.originalname.split(" ").join("_");
     const extension = MIME_TYPE[ file.mimetype];
 
-    cb(null, name + "-" + Date.now() + extension)
+    cb(null, name + "_" + Date.now() + extension);
   }
 })
 
