@@ -34,7 +34,7 @@ const emailCryptoJs = cryptoJs.HmacSHA256(req.body.email,`${process.env.DB_KEY_S
   
       // ce qui va être enregistré dans mongoDB
         const inserteduser = await user.save();
-        res.status(201).json(inserteduser);
+        res.status(201).json({inserteduser, message : "utilisateur a bien été enregistré"});
         }catch (error) {
         res.status(500).json({message: error.message});
         

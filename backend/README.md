@@ -3,7 +3,11 @@ Pour lancer le serveur : "npm run dev"
 
 #Routes
 ##La route pour créer un compte
-http://localhost:5000/api/auth/signUp
+http://localhost:5000/auth/signUp
+
+body->raw :
+  "email" : "xxxxxx", (mot de passe fort)
+  "password" : "xxxxxx"
 
 
 ##La route pour de connecter

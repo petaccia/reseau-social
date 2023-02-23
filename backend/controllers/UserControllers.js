@@ -1,33 +1,39 @@
 // Importation du modelde la base de donnée
 const Users = require("../models/UserManager");
 
-exports.createUser = async (req,res) => {
-  try {
-  console.log(req.body.user);
-  const user = JSON.parse(req.body.user);
-  // console.log(user);
+exports.createUser =  (req,res, next) => {
+  
+    const user = req.body
+
+    console.log(user);
+    // console.log("-----------req---------------")
+    // console.log(req.protocol);
+    // console.log(req.get("host"));
+    // console.log(req.file.filename);
+    const users = new Users({
+     ...user,
+      photoProfilUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+      
+    });
+    users.save()
+    .then(() => {
+      res.status(201).json({
+        message : "objet enregistré dans la base de donnée", 
+      contenu: req.body
+    });
+
+    })
+        
+      .catch ((error) => res.status(400).json({message: error.message}));
+      };
+     
   
   
  
-  // console.log(req.protocol);
-  // console.log(req.get("host"));
-  // console.log(req.file.filename);
-
-  const users = new Users({
-    ...user,
-    photoProfilUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-  });
-    const inserteduser = await users.save();
-    console.log(inserteduser);
-    res.status(201).json({inserteduser, message : "objet enregistré dans la base de donnée"});
-  }catch (error) {
-    res.status(400).json({message: error.message});
-  }
- }
 
 exports.browseUser = async (req,res) => {
   try {
-    const users = await Users.find();
+    const users = await Users.find({});
     res.status(200).json(users);
   }catch (error) {
     res.status(500).json({message: error.message});
@@ -36,7 +42,7 @@ exports.browseUser = async (req,res) => {
 
  exports.readUser = async (req,res) => {
   try {
-    const user = await Users.findById( req.params.id );
+    const user = await Users.findById({_id : req.params.id }).exec();
     res.status(200).json(user);
   }catch (error) {
     res.status(404).json({message: error.message});
@@ -45,11 +51,12 @@ exports.browseUser = async (req,res) => {
 
  exports.editUser = async (req, res) => {
   try{
-    const updateduser = await Users.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
   });
-    res.status(200).json({message : "l'objet a été mis à jour", updateduser});
+  console.log(updatedUser);
+    res.status(200).json({message : "l'objet a été mis à jour", updatedUser});
   }catch (error) {
     res.status(400).json({message: error.message});
   }
@@ -57,11 +64,28 @@ exports.browseUser = async (req,res) => {
 
  exports.destroyUser = async (req,res) => {
   try {
-    const deleteduser = await Users.findByIdAndDelete(req.params.id);
+    const objet = await Users.findById({_id : req.params.id});
     
-    res.status(204).json({message : "l'objet a bien été supprimé", deleteduser});
+    if(userIdParamsUrl === objet.userId){
+      console.log(objet);
+      const filename = objet.photoProfilUrl.split("/image")[1];
+      fs.unlink(`images/${filename}`, (err) => {
+        if (err) res.status(500).json({err});
+        console.log(`${filename} le fichier a été supprimé`);
+      });
+      const user = await Users.findByIdAndDelete({
+        id_: req.params.id
+      });
+      res.status(200).json({message : `id: ${req.params.id} document supprimé`});
+
+    }else{
+      res.status(403).json({ message: "Utilisateur pas autorisé à supprimer le document"})
+    }
   }catch (error) {
-    res.status(400).json({message: error.message});
+    res.status(500).json({
+      message: "image inexistante",
+      error : error
+    });
   }
  }
   

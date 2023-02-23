@@ -31,4 +31,4 @@ destination :  (req, file, cb) => {
 
 console.log(storage);
 // Expotation du middleware multer
-module.exports = multer({storage}).single("image");
+module.exports = multer({storage}).single("images");
