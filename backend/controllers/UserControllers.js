@@ -1,5 +1,8 @@
 // Importation du modelde la base de donnée
 const Users = require("../models/UserManager");
+const {browseUserQuery} = require("../queries/UserQuery")
+
+
 
 exports.createUser =  (req,res, next) => {
   
@@ -33,7 +36,7 @@ exports.createUser =  (req,res, next) => {
 
 exports.browseUser = async (req,res) => {
   try {
-    const users = await Users.find({});
+    const users = await browseUserQuery();
     res.status(200).json(users);
   }catch (error) {
     res.status(500).json({message: error.message});
