@@ -1,6 +1,6 @@
 // Importation du modelde la base de donnée
 const Users = require("../models/UserManager");
-const {browseUserQuery} = require("../queries/UserQuery")
+const {browseUserQuery, readUserQuery, findByIdAndDeleteQuery} = require("../queries/UserQuery")
 
 
 
@@ -45,7 +45,8 @@ exports.browseUser = async (req,res) => {
 
  exports.readUser = async (req,res) => {
   try {
-    const user = await Users.findById({_id : req.params.id }).exec();
+    const id = req.params.id;
+    const user = await readUserQuery(id);
     res.status(200).json(user);
   }catch (error) {
     res.status(404).json({message: error.message});
@@ -67,7 +68,8 @@ exports.browseUser = async (req,res) => {
 
  exports.destroyUser = async (req,res) => {
   try {
-    const objet = await Users.findById({_id : req.params.id});
+    const id = req.params.id;
+    const objet = await readUserQuery(id);
     
     if(userIdParamsUrl === objet.userId){
       console.log(objet);
@@ -76,9 +78,7 @@ exports.browseUser = async (req,res) => {
         if (err) res.status(500).json({err});
         console.log(`${filename} le fichier a été supprimé`);
       });
-      const user = await Users.findByIdAndDelete({
-        id_: req.params.id
-      });
+      const user = await findByIdAndDeleteQuery(id);
       res.status(200).json({message : `id: ${req.params.id} document supprimé`});
 
     }else{
